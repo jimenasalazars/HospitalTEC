@@ -5,10 +5,12 @@
  */
 package Controllers;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.LinkedList;
 /**
  *
  * @author hecto
@@ -69,7 +71,22 @@ public class Procedures {
     }
     
     
-    public static void function(String fName) throws SQLException{
+    public static LinkedList function(String fName) throws SQLException{
+        String result = "";
         Statement stm = DBConnection.con.createStatement();
+        ResultSet rst = stm.executeQuery("SELECT * FROM GET_APPOINTMENTS()");
+        
+        LinkedList toReturn = new LinkedList();
+        
+        while(rst.next()){
+            result += rst.getString(1) + ", ";
+            result += rst.getString(2) + " " + rst.getString(3) + ", ";
+            result += rst.getString(4);
+            
+            toReturn.add(new String(result));
+            result = "";
+        }
+        
+        return toReturn;
     }
 }

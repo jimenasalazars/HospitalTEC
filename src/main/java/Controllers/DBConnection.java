@@ -8,6 +8,7 @@ package Controllers;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,7 +50,10 @@ public class DBConnection {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
-        Procedures.insert("NEW_PATIENT", new String[]{"Marianela", "Delgado", "Aguirre", "1969-06-29", "A+", "Casa", "Costa Rica"});
+        LinkedList result = Procedures.function("");
+        while(!result.isEmpty()){
+            System.out.println((String)result.pollFirst());
+        }
     }
     
 }
